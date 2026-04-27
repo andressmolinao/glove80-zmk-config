@@ -393,6 +393,14 @@
                 , <&macro_tap &kp C>
                 , <&macro_release &kp LCTRL>;
         };
+        macro_ctrl_shift: macro_ctrl_shift {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LSHFT &kp LCTRL>
+                , <&macro_pause_for_release>
+                , <&macro_release &kp LSHFT &kp LCTRL>;
+        };
         macro_ctrl_z: macro_ctrl_z {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -615,7 +623,7 @@
  &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans      &trans    &trans     &trans  &trans
  &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &kp HOME    &kp UP    &kp END    &trans  &trans
  &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &kp LEFT  &kp DOWN  &kp RIGHT    &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans     &trans     &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans  &macro_ctrl_shift  &trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans     &trans     &trans  &trans
  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans            &trans    &trans     &trans     &trans  &trans
             >;
         };
