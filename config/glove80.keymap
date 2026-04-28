@@ -20,6 +20,9 @@
 #include <dt-bindings/zmk/rgb.h>
 
 /* On demand includes */
+#include <dt-bindings/zmk/input_transform.h>
+#include <dt-bindings/zmk/pointing.h>
+#include <input/processors.dtsi>
 
 
 /* Helper Macros, based on https://github.com/urob/zmk-helpers/ */
@@ -67,7 +70,11 @@
 #define LAYER_Programming 3
 #define LAYER_Numbers 4
 #define LAYER_Navigation 5
-#define LAYER_Factory 6
+#define LAYER_Mouse 6
+#define LAYER_MouseSlow 7
+#define LAYER_MouseRegular 8
+#define LAYER_MouseFast 9
+#define LAYER_Factory 10
 
 /* To deal with the situation where there is no Lower layer, to keep &lower happy */
 #ifndef LAYER_Lower
@@ -78,6 +85,35 @@
 
 
 /* Input Listeners */
+&mmv_input_listener {
+    MouseSlow {
+        layers = <LAYER_MouseSlow>;
+        input-processors = <&zip_xy_scaler 1 9>;
+    };
+    MouseRegular {
+        layers = <LAYER_MouseRegular>;
+        input-processors = <&zip_xy_scaler 3 1>;
+    };
+    MouseFast {
+        layers = <LAYER_MouseFast>;
+        input-processors = <&zip_xy_scaler 12 1>;
+    };
+};
+
+&msc_input_listener {
+    MouseSlow {
+        layers = <LAYER_MouseSlow>;
+        input-processors = <&zip_scroll_scaler 1 9>;
+    };
+    MouseRegular {
+        layers = <LAYER_MouseRegular>;
+        input-processors = <&zip_scroll_scaler 3 1>;
+    };
+    MouseFast {
+        layers = <LAYER_MouseFast>;
+        input-processors = <&zip_scroll_scaler 12 1>;
+    };
+};
 
 
 /* System behavior and Macros */
@@ -304,7 +340,9 @@
 
 /* Custom Defined Behaviors */
 / {
-
+#undef ZMK_POINTING_DEFAULT_MOVE_VAL
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 2500
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 25
 };
 
 /* Generated input processors */
@@ -604,7 +642,7 @@
         layer_Magic {
             bindings = <
   &bt BT_CLR            &none            &none            &none             &none                                                                                  &none   &none   &none   &none  &bt BT_CLR_ALL
-       &none            &none            &to 0  &to LAYER_Lower  &to LAYER_Numbers            &none                                                         &none   &none   &none   &none   &none           &none
+       &none            &none            &to 0  &to LAYER_Lower  &to LAYER_Numbers  &to LAYER_Mouse                                                         &none   &none   &none   &none   &none           &none
        &none  &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_BRI  &rgb_ug RGB_TOG                                                         &none   &none   &none   &none   &none              &none
  &bootloader  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                                                         &none   &none   &none   &none   &none        &bootloader
    &sys_reset            &none            &none            &none            &none            &none   &bt_2   &bt_3  &to LAYER_Numbers   &none   &none   &none   &none   &none   &none   &none   &none         &sys_reset
@@ -642,6 +680,50 @@
  &trans  &trans  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &trans                                                  &trans  &kp LEFT  &kp DOWN  &kp RIGHT    &trans  &trans
  &trans  &trans  &trans  &trans  &trans  &trans  &macro_ctrl_shift  &trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans     &trans     &trans  &trans
  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans            &trans    &trans     &trans     &trans  &trans
+            >;
+        };
+
+        layer_Mouse {
+            bindings = <
+ &none          &none          &none             &none            &none                                                                                     &none          &none           &none          &none      &none
+ &none          &none          &none             &none            &none      &none                                                               &none      &none          &none           &none          &none      &none
+ &none          &none   &msc SCRL_LEFT      &msc SCRL_UP   &msc SCRL_RIGHT  &none                                                               &none      &none     &mmv MOVE_UP        &none          &none      &none
+ &none      &kp LSHFT   &msc SCRL_DOWN      &msc SCRL_DOWN  &msc SCRL_RIGHT  &none                                                               &none  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT    &none      &none
+ &none      &kp LCTRL          &none             &none            &none      &none  &none  &none  &to 0  &none      &none      &none              &none      &none          &none           &none          &none      &none
+ &none          &none  &mo LAYER_MouseSlow  &mo LAYER_MouseRegular  &mo LAYER_MouseFast    &mkp LCLK  &mkp RCLK  &none  &none  &mkp MCLK  &mkp LCLK                 &none          &none           &none          &none      &none
+            >;
+        };
+
+        layer_MouseSlow {
+            bindings = <
+ &none  &none  &none  &none  &none                                                                  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none  &none                                                  &none  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none  &none                                                  &none  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none  &none                                                  &none  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none          &none  &none  &none  &none  &none  &none          &none  &none  &none  &none  &none
+            >;
+        };
+
+        layer_MouseRegular {
+            bindings = <
+ &none  &none  &none  &none  &none                                                                  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none  &none                                                  &none  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none  &none                                                  &none  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none  &none                                                  &none  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none          &none  &none  &none  &none  &none  &none          &none  &none  &none  &none  &none
+            >;
+        };
+
+        layer_MouseFast {
+            bindings = <
+ &none  &none  &none  &none  &none                                                                  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none  &none                                                  &none  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none  &none                                                  &none  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none  &none                                                  &none  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+ &none  &none  &none  &none  &none          &none  &none  &none  &none  &none  &none          &none  &none  &none  &none  &none
             >;
         };
 
