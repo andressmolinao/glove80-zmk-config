@@ -622,7 +622,7 @@
                &kp F1    &kp F2   &kp F3    &kp F4     &kp F5                                                                                  &kp F6     &kp F7    &kp F8    &kp F9    &kp F10
             &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
               &ht_tab 0 TAB     &kp Q    &kp W  &ht_e 0 E      &kp R   &kp T                                                                   &ht_y 0 Y  &ht_u 0 U  &ht_i 0 I  &ht_o 0 O     &kp P   &kp BSLH
-              &kp ESC  &ht_a 0 A    &kp S     &kp D      &kp F   &kp G                                                                   &kp H   &kp J      &kp K  &ht_l 0 L  &kp SEMI    &kp SQT
+              &kp ESC  &ht_a 0 A    &kp S     &kp D      &kp F   &kp G                                                                   &kp H   &kp J      &kp K     &kp L  &kp SEMI    &kp SQT
             &kp GRAVE  &ht_z 0 Z  &ht_x 0 X  &ht_c 0 C  &ht_v 0 V   &kp B                &kp LSHFT              &kp LCTRL  &kp CAPS  &kp LGUI  &kp RCTRL  &kp RSHFT  &ht_n 0 N   &kp M  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
  &magic LAYER_Magic 0  &kp HOME  &kp END  &kp LEFT  &lt LAYER_Navigation RIGHT                    &kp BSPC  &ht_del_prog LAYER_Programming DEL  &kp LALT  &kp RALT    &kp RET  &kp SPACE          &kp UP   &kp DOWN  &kp LBKT  &kp RBKT  &kp PG_DN
             >;
@@ -642,7 +642,7 @@
         layer_Magic {
             bindings = <
   &bt BT_CLR            &none            &none            &none             &none                                                                                  &none   &none   &none   &none  &bt BT_CLR_ALL
-       &none            &none            &to 0  &to LAYER_Lower  &to LAYER_Numbers  &to LAYER_Mouse                                                         &none   &none   &none   &none   &none           &none
+       &none            &none            &to 0  &to LAYER_Lower  &to LAYER_Mouse            &none                                                         &none   &none   &none   &none   &none           &none
        &none  &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_BRI  &rgb_ug RGB_TOG                                                         &none   &none   &none   &none   &none              &none
  &bootloader  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                                                         &none   &none   &none   &none   &none        &bootloader
    &sys_reset            &none            &none            &none            &none            &none   &bt_2   &bt_3  &to LAYER_Numbers   &none   &none   &none   &none   &none   &none   &none   &none         &sys_reset
