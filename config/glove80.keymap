@@ -345,7 +345,8 @@
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 25
 };
 
-/* Per-key RGB lighting */
+/* Per-key RGB lighting — NOT AVAILABLE in standard MoErgo ZMK fork (requires rgb_colors.h) */
+/* Kept as reference for future use if MoErgo adds support */
 #if __has_include(<dt-bindings/zmk/rgb_colors.h>)
 
 #define RED_RGB 0xFF0000
