@@ -479,6 +479,36 @@
                 , <&macro_tap &kp X>
                 , <&macro_release &kp LCTRL>;
         };
+        macro_ctrl_s: macro_ctrl_s {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp S>
+                , <&macro_release &kp LCTRL>;
+        };
+        macro_ctrl_f: macro_ctrl_f {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp F>
+                , <&macro_release &kp LCTRL>;
+        };
+        macro_ctrl_g: macro_ctrl_g {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp G>
+                , <&macro_release &kp LCTRL>;
+        };
         macro_ctrl_v: macro_ctrl_v {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -551,6 +581,30 @@
             require-prior-idle-ms = <150>;
             bindings = <&macro_win_space>, <&kp>;
         };
+        ht_s: ht_s {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            require-prior-idle-ms = <150>;
+            bindings = <&macro_ctrl_s>, <&kp>;
+        };
+        ht_f: ht_f {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            require-prior-idle-ms = <150>;
+            bindings = <&macro_ctrl_f>, <&kp>;
+        };
+        ht_g: ht_g {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            require-prior-idle-ms = <150>;
+            bindings = <&macro_ctrl_g>, <&kp>;
+        };
         ht_z: ht_z {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -622,7 +676,7 @@
                &kp F1    &kp F2   &kp F3    &kp F4     &kp F5                                                                                  &kp F6     &kp F7    &kp F8    &kp F9    &kp F10
             &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
               &ht_tab 0 TAB     &kp Q    &kp W  &ht_e 0 E      &kp R   &kp T                                                                   &ht_y 0 Y  &ht_u 0 U  &ht_i 0 I  &ht_o 0 O     &kp P   &kp BSLH
-              &kp ESC  &ht_a 0 A    &kp S     &kp D      &kp F   &kp G                                                                   &kp H   &kp J      &kp K     &kp L  &kp SEMI    &kp SQT
+              &kp ESC  &ht_a 0 A  &ht_s 0 S     &kp D  &ht_f 0 F  &ht_g 0 G                                                                   &kp H   &kp J      &kp K     &kp L  &kp SEMI    &kp SQT
             &kp GRAVE  &ht_z 0 Z  &ht_x 0 X  &ht_c 0 C  &ht_v 0 V   &kp B                &kp LSHFT              &kp LCTRL  &kp CAPS  &kp LGUI  &kp RCTRL  &kp RSHFT  &ht_n 0 N   &kp M  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
  &magic LAYER_Magic 0  &kp HOME  &kp END  &kp LEFT  &lt LAYER_Navigation RIGHT                    &kp BSPC  &ht_del_prog LAYER_Programming DEL  &kp LALT  &kp RALT    &kp RET  &kp SPACE          &kp UP   &kp DOWN  &kp LBKT  &kp RBKT  &kp PG_DN
             >;
@@ -687,10 +741,10 @@
             bindings = <
  &none          &none          &none             &none            &none                                                                                     &none          &none           &none          &none      &none
  &none          &none          &none             &none            &none      &none                                                               &none      &none          &none           &none          &none      &none
- &none          &none      &mkp LCLK      &msc SCRL_UP      &mkp RCLK  &none                                                               &none   &kp LA(LEFT)   &mmv MOVE_UP   &kp LA(RIGHT)      &none      &none
+ &kp TAB        &none      &mkp LCLK      &msc SCRL_UP      &mkp RCLK  &none                                                               &none   &kp LA(LEFT)   &mmv MOVE_UP   &kp LA(RIGHT)      &none      &none
  &none      &kp LCTRL   &msc SCRL_LEFT  &msc SCRL_DOWN  &msc SCRL_RIGHT  &none                                                               &none  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT    &none      &none
- &none      &kp LSHFT          &none      &macro_ctrl_c    &macro_ctrl_v      &none  &none  &none  &to 0  &none      &none      &none              &none      &none          &none           &none          &none      &none
- &none          &none  &mo LAYER_MouseSlow  &mo LAYER_MouseRegular  &mo LAYER_MouseFast    &mkp LCLK  &mkp RCLK  &none  &none  &mkp MCLK  &mkp LCLK                 &none          &none           &none          &none      &none
+ &none      &kp LSHFT          &none      &macro_ctrl_c    &macro_ctrl_v      &none  &mkp LCLK  &mkp RCLK  &to 0  &none      &none      &none              &none   &kp HOME          &none        &kp END          &none      &none
+ &none          &none  &mo LAYER_MouseSlow  &mo LAYER_MouseRegular  &mo LAYER_MouseFast    &kp BSPC     &kp DEL  &kp LALT  &none  &mkp MCLK  &mkp LCLK                 &none          &none           &none          &none      &none
             >;
         };
 
