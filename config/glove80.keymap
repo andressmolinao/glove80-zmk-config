@@ -345,6 +345,240 @@
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 25
 };
 
+/* Per-key RGB lighting */
+#if __has_include(<dt-bindings/zmk/rgb_colors.h>)
+
+#define RED_RGB 0xFF0000
+#define ORN_RGB 0xFF8000
+#define YLW_RGB 0xFFFF00
+#define GRN_RGB 0x00FF00
+#define CYN_RGB 0x00FFFF
+#define AZU_RGB 0x99F5FF
+#define BLU_RGB 0x0000FF
+#define PUR_RGB 0x7A00FF
+#define MAJ_RGB 0xFF00FF
+#define PNK_RGB 0xFF80BF
+#define WHT_RGB 0xFFFFFF
+#define BLK_RGB 0x000000
+#define COR_RGB 0xFF7C4D
+#define GOL_RGB 0xFFD900
+
+#define RED &ug RED_RGB
+#define ORN &ug ORN_RGB
+#define YLW &ug YLW_RGB
+#define GRN &ug GRN_RGB
+#define CYN &ug CYN_RGB
+#define AZU &ug AZU_RGB
+#define BLU &ug BLU_RGB
+#define PUR &ug PUR_RGB
+#define MAJ &ug MAJ_RGB
+#define PNK &ug PNK_RGB
+#define WHT &ug WHT_RGB
+#define ___ &ug BLK_RGB
+#define COR &ug COR_RGB
+#define GOL &ug GOL_RGB
+
+#define BCL &ug_cl BLK_RGB YLW_RGB
+
+/ {
+  underglow-layer {
+    compatible = "zmk,underglow-layer";
+
+    /* Base: iluminar CAPS y Space cuando Magic esta activo (via Magic layer) */
+    /* CapsLock indicator en tecla CAPS */
+    #ifdef LAYER_Base
+    Base {
+      bindings = <
+        ___ ___ BCL ___ ___                                             ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___ ___     ___ ___ BCL     ___ ___ ___     ___ ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___         ___ ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
+      >;
+      layer-id = <LAYER_Base>;
+      fade-delay = <15>;
+    };
+    #endif
+
+    /* Magic: iluminar CAPS(Numbers) y Space(Mouse) como accesos a capas */
+    #ifdef LAYER_Magic
+    Magic {
+      bindings = <
+        RED ___ ___ ___ ___                                             ___ ___ ___ ___ RED
+        ___ ___ GRN GRN ___ ___                                     ___ ___ ___ ___ ___ ___
+        ___ PNK PNK PNK PNK PNK                                     ___ ___ ___ ___ ___ ___
+        RED PNK PNK PNK PNK PNK                                     ___ ___ ___ ___ ___ RED
+        RED ___ ___ ___ ___ ___     BLU BLU YLW     ___ ___ ___     ___ ___ ___ ___ ___ RED
+        ___ ___ ___ ___ ___         BLU BLU BLU     ___ ___ MAJ         ___ ___ ___ ___ ORN
+      >;
+      layer-id = <LAYER_Magic>;
+      fade-delay = <5>;
+    };
+    #endif
+
+    /* Programming: simbolos en naranja */
+    #ifdef LAYER_Programming
+    Programming {
+      bindings = <
+        ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+        ___ ___ ORN ___ ORN ___                                     ORN ORN ORN ORN ___ ___
+        ___ YLW ORN ORN ORN ___                                     ORN ORN ORN ORN ORN ___
+        PNK ___ ___ ___ ORN ___     ___ ___ GRN     ___ ___ ___     ORN ORN ORN ORN ORN ___
+        PNK PNK ___ ___ ___         ___ ___ ___     ___ ___ ___         ORN ORN ORN ___ ___
+      >;
+      layer-id = <LAYER_Programming>;
+      fade-delay = <5>;
+    };
+    #endif
+
+    /* Numbers: numeros en cyan, F-keys en cyan, operadores en naranja, RShift iluminado */
+    #ifdef LAYER_Numbers
+    Numbers {
+      bindings = <
+        ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
+        ___ ___ CYN CYN CYN ___                                     ___ ___ ORN ORN ORN ___
+        ___ ___ CYN CYN CYN ___                                     ___ CYN CYN CYN ORN ___
+        YLW YLW CYN CYN CYN ___                                     ___ CYN CYN CYN ORN ___
+        YLW YLW CYN CYN CYN ___     ___ ___ GRN     ___ ___ GOL     ___ CYN CYN CYN ___ ___
+        ___ ___ ___ ___ ___         ___ ___ ___     ___ ___ ___         CYN ORN ___ ___ ___
+      >;
+      layer-id = <LAYER_Numbers>;
+      fade-delay = <5>;
+    };
+    #endif
+
+    /* Navigation: flechas azul, media rosa, ctrl+shift en violeta */
+    #ifdef LAYER_Navigation
+    Navigation {
+      bindings = <
+        ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+        ___ ___ PNK PNK PNK ___                                     ___ AZU BLU AZU ___ ___
+        ___ ___ PNK PNK PNK ___                                     ___ BLU BLU BLU ___ ___
+        ___ ___ ___ ___ ___ ___     PUR ___ ___     ___ ___ ___     ___ GRN ___ GRN ___ ___
+        ___ ___ ___ ___ ___         ___ ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
+      >;
+      layer-id = <LAYER_Navigation>;
+      fade-delay = <5>;
+    };
+    #endif
+
+    /* Mouse: cursor azul, scroll cyan, clicks amarillo, velocidad naranja */
+    #ifdef LAYER_Mouse
+    Mouse {
+      bindings = <
+        ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+        ___ ___ YLW CYN YLW ___                                     ___ AZU BLU AZU ___ ___
+        ___ GRN CYN CYN CYN ___                                     ___ BLU BLU BLU ___ ___
+        ___ MAJ ___ PUR PUR ___     YLW ORN GRN     ___ ___ ___     ___ GRN ___ GRN ___ ___
+        ___ ___ COR COR COR         WHT WHT WHT     ___ PNK YLW         ___ ___ ___ ___ ___
+      >;
+      layer-id = <LAYER_Mouse>;
+      fade-delay = <5>;
+    };
+    #endif
+
+    /* MouseSlow */
+    #ifdef LAYER_MouseSlow
+    MouseSlow {
+      bindings = <
+        ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+        ___ ___ COR COR COR ___                                     ___ COR COR COR ___ ___
+        ___ COR COR COR COR ___                                     ___ COR COR COR ___ ___
+        ___ ___ ___ ___ ___ ___     ___ ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___         ___ ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
+      >;
+      layer-id = <LAYER_MouseSlow>;
+      fade-delay = <5>;
+    };
+    #endif
+
+    /* MouseRegular */
+    #ifdef LAYER_MouseRegular
+    MouseRegular {
+      bindings = <
+        ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+        ___ ___ GOL GOL GOL ___                                     ___ GOL GOL GOL ___ ___
+        ___ GOL GOL GOL GOL ___                                     ___ GOL GOL GOL ___ ___
+        ___ ___ ___ ___ ___ ___     ___ ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___         ___ ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
+      >;
+      layer-id = <LAYER_MouseRegular>;
+      fade-delay = <5>;
+    };
+    #endif
+
+    /* MouseFast */
+    #ifdef LAYER_MouseFast
+    MouseFast {
+      bindings = <
+        ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+        ___ ___ GRN GRN GRN ___                                     ___ GRN GRN GRN ___ ___
+        ___ GRN GRN GRN GRN ___                                     ___ GRN GRN GRN ___ ___
+        ___ ___ ___ ___ ___ ___     ___ ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
+        ___ ___ ___ ___ ___         ___ ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
+      >;
+      layer-id = <LAYER_MouseFast>;
+      fade-delay = <5>;
+    };
+    #endif
+
+    /* Lower */
+    #ifdef LAYER_Lower
+    Lower {
+      bindings = <
+        PNK PNK BLU BLU BLU                                             BLU BLU BLU ___ ORN
+        ___ ___ ___ ___ ___ GRN                                     WHT ORN WHT WHT WHT ORN
+        ___ ___ ___ GRN ___ GRN                                     WHT WHT WHT WHT WHT ORN
+        ___ ___ GRN GRN GRN GRN                                     WHT WHT WHT WHT WHT ___
+        ___ ORN ___ WHT WHT GRN     ___ ___ GRN     ___ ___ ___     WHT WHT WHT WHT WHT ___
+        ___ ORN ORN WHT WHT         ___ ___ ___     ___ ___ ___         WHT WHT WHT WHT ___
+      >;
+      layer-id = <LAYER_Lower>;
+      fade-delay = <15>;
+    };
+    #endif
+
+  };
+};
+
+#undef RED
+#undef RED_RGB
+#undef ORN
+#undef ORN_RGB
+#undef YLW
+#undef YLW_RGB
+#undef GRN
+#undef GRN_RGB
+#undef CYN
+#undef CYN_RGB
+#undef AZU
+#undef AZU_RGB
+#undef BLU
+#undef BLU_RGB
+#undef PUR
+#undef PUR_RGB
+#undef MAJ
+#undef MAJ_RGB
+#undef PNK
+#undef PNK_RGB
+#undef WHT
+#undef WHT_RGB
+#undef ___
+#undef BLK_RGB
+#undef COR
+#undef COR_RGB
+#undef GOL
+#undef GOL_RGB
+#undef BCL
+#endif
+
 /* Generated input processors */
 
 
@@ -730,9 +964,9 @@
             bindings = <
  &trans  &trans  &trans  &trans  &trans                                                                  &trans      &trans    &trans     &trans  &trans
  &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans      &trans    &trans     &trans  &trans
- &trans  &trans  &kp C_PREV  &kp C_PP  &kp C_NEXT  &trans                                                  &trans  &kp HOME    &kp UP    &kp END    &trans  &trans
+ &trans  &trans  &kp C_PREV  &kp C_PP  &kp C_NEXT  &trans                                                  &trans  &kp LA(LEFT)    &kp UP    &kp LA(RIGHT)    &trans  &trans
  &trans  &trans  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &trans                                                  &trans  &kp LEFT  &kp DOWN  &kp RIGHT    &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans  &macro_ctrl_shift  &trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans     &trans     &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans  &macro_ctrl_shift  &trans  &trans  &trans  &trans  &trans  &trans    &kp HOME    &trans     &kp END     &trans  &trans
  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans            &trans    &trans     &trans     &trans  &trans
             >;
         };
